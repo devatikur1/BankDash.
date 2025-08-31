@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import SideBar from "../../components/LoginedComponents/SideBar";
+import SideBar from "../SideBar";
 import DasMain from "../../components/LoginedComponents/DasMain";
 import { SideOptionAction } from "../../contexts/SideOptionAction";
 

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { SideOptionAction } from "../../contexts/SideOptionAction";
 
 export default function Header() {
-  const { DexSearchAction } = useContext(SideOptionAction);
+  const { setSearchShowing, setSideBarShowing } = useContext(SideOptionAction);
   const IsWin = navigator.platform.includes("Win");
 
   return (
@@ -11,7 +11,10 @@ export default function Header() {
       <div className="text-2xl font-semibold text_glow">Overview</div>
       <div className="flex gap-3 items-center">
         <button
-          ref={DexSearchAction}
+          onClick={() => {
+            setSearchShowing(true);
+            setSideBarShowing(false);
+          }}
           style={{ background: "linear-gradient(to right, #f32170, #ff6b08)" }}
           className="flex justify-center items-center gap-2 rounded-2xl text-white px-2 py-0 h-[25px] mr-8"
         >

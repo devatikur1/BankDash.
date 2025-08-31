@@ -316,7 +316,6 @@ body {
 
 .DexActive {
   background: linear-gradient(to right, #f32170, #ff6b08);
-  border-radius: 10px;
   color: #fff;
   opacity: 1;
 }

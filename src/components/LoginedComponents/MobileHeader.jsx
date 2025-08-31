@@ -18,11 +18,72 @@ import {
   Wrench,
   X,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function MobileHeader() {
-  const { MobiSearchAction, sideBarShowing, setSideBarShowing, PhoneSidBar } =
-    useContext(SideOptionAction);
+  const {
+    MobiSearchAction,
+    sideBarShowing,
+    setSearchShowing,
+    setSideBarShowing,
+  } = useContext(SideOptionAction);
+  const sidebarMenuItems = [
+    {
+      type: "overview",
+      label: "Dashboard",
+      icon: <House opacity={0.9} size={30} />,
+      to: "/dashboard",
+    },
+    {
+      type: "transactions",
+      label: "Transactions",
+      icon: <ArrowLeftRight opacity={0.9} size={30} />,
+      to: "/transactions",
+    },
+    {
+      type: "Accounts",
+      label: "Accounts",
+      icon: <User opacity={0.9} size={30} />,
+      to: "/accounts",
+    },
+    {
+      type: "Investments",
+      label: "Investments",
+      icon: <ChartNoAxesCombined opacity={0.9} size={30} />,
+      to: "/investments",
+    },
+    {
+      type: "Credit Cards",
+      label: "Credit Cards",
+      icon: <CreditCard opacity={0.9} size={30} />,
+      to: "/credit-cards",
+    },
+    {
+      type: "Loans",
+      label: "Loans",
+      icon: <Banknote opacity={0.9} size={30} />,
+      to: "/loans",
+    },
+    {
+      type: "Services",
+      label: "Services",
+      icon: <Wrench opacity={0.9} size={30} />,
+      to: "/services",
+    },
+    {
+      type: "My Privileges",
+      label: "My Privileges",
+      icon: <ShieldCheck opacity={0.9} size={30} />,
+      to: "/my-privileges",
+    },
+    {
+      type: "Setting",
+      label: "Setting",
+      icon: <Settings opacity={0.9} size={30} />,
+      to: "/settings",
+    },
+  ];
+
   return (
     <>
       <div
@@ -32,9 +93,9 @@ export default function MobileHeader() {
       >
         <div className="flex flex-col gap-8">
           <div className="flex justify-between items-center">
-            <a
+            <Link
               title="BankDash"
-              href="/"
+              to="/"
               className="select-none flex justify-start items-center gap-2"
             >
               <img
@@ -43,9 +104,12 @@ export default function MobileHeader() {
                 alt="logo"
               />
               {/* <h1 className="font-semibold text-[1.7rem] block">BankDash.</h1> */}
-            </a>
+            </Link>
             <button
-              ref={MobiSearchAction}
+              onClick={() => {
+                setSearchShowing(true);
+                setSideBarShowing(false);
+              }}
               style={{
                 background: "linear-gradient(to right, #f32170, #ff6b08)",
               }}
@@ -59,92 +123,26 @@ export default function MobileHeader() {
             </button>
           </div>
           <hr />
-          <nav ref={PhoneSidBar} className="w-full flex flex-col gap-4">
-            <div data-type={"overview"} className="activeThis">
-              <Link
-                to={"/dashboard"}
-                className="px-0 paddingRight py-3 flex justify-start items-end gap-4"
+          <nav className="w-full flex flex-col gap-4">
+            {sidebarMenuItems.map((item) => (
+              <NavLink
+                key={item.type}
+                to={item.to}
+                className={({ isActive }) =>
+                  isActive
+                    ? "activeThis px-0 py-3 flex gap-4 items-end"
+                    : "px-0 py-3 flex gap-4 items-end"
+                }
+                onClick={() => setSideBarShowing(false)}
               >
-                <House opacity={0.9} size={30} />
-                <span className="flex text-xl opacity-[0.6]">Dashboard</span>
-              </Link>
-            </div>
-            <div data-type="transactions">
-              <Link
-                to={"/transactions"}
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-              >
-                <ArrowLeftRight opacity={0.9} size={30} />
-                <span className="flex text-xl opacity-[0.6]">Transactions</span>
-              </Link>
-            </div>
-            <div data-type={"Accounts"}>
-              <a
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-                href=""
-              >
-                <User title={"Accounts"} opacity={0.9} size={30} />
-                <span className="flex text-xl opacity-[0.6]">Accounts</span>
-              </a>
-            </div>
-            <div data-type={"Investments"}>
-              <a
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-                href=""
-              >
-                <ChartNoAxesCombined opacity={0.9} size={30} />
-                <span className="flex text-xl opacity-[0.6]">Investments</span>
-              </a>
-            </div>
-            <div data-type={"Credit Cards"}>
-              <a
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-                href=""
-              >
-                <CreditCard opacity={0.9} size={"30px"} />
-                <span className="flex text-xl opacity-[0.6]">
-                  Credit Cards{" "}
-                </span>
-              </a>
-            </div>
-            <div data-type={"Loans"}>
-              <a
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-                href=""
-              >
-                <Banknote opacity={0.9} size={"30px"} />
-                <span className="flex text-xl opacity-[0.6]">Loans</span>
-              </a>
-            </div>
-            <div data-type={"Services"}>
-              <a
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-                href=""
-              >
-                <Wrench opacity={0.9} size={"30px"} />
-                <span className="flex text-xl opacity-[0.6]">Services</span>
-              </a>
-            </div>
-            <div data-type={"My Privileges"}>
-              <a
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-                href=""
-              >
-                <ShieldCheck opacity={0.9} size={"30px"} />
-                <span className="flex text-xl opacity-[0.6]">
-                  My Privileges
-                </span>
-              </a>
-            </div>
-            <div data-type={"Setting"}>
-              <a
-                className="px-0 py-3 paddingRight flex justify-start items-end gap-4"
-                href=""
-              >
-                <Settings opacity={0.9} size={"30px"} />
-                <span className="flex text-xl opacity-[0.6]">Setting</span>
-              </a>
-            </div>
+                <div className="paddingRight flex gap-3 justify-normal items-center">
+                  {item.icon}
+                  <span className="flex text-xl opacity-[0.6]">
+                    {item.label}
+                  </span>
+                </div>
+              </NavLink>
+            ))}
           </nav>
         </div>
 
