@@ -1,8 +1,14 @@
 import { Eye, EyeOff } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
+import toast from "react-hot-toast";
+import LocalStorageService from "../../utils/LocalStorage";
 
 export default function Register() {
+  const { setLoginStattus, setRegisterSatus } =
+    useContext(AuthContext);
+
   const [passType, setPassType] = useState("password");
   const [confirmPassType, setConfirmPassType] = useState("password");
   const [error, setError] = useState(false);
@@ -37,8 +43,34 @@ export default function Register() {
 
   function submitHanler(e) {
     e.preventDefault();
-    console.log(e);
-    console.log(error || matchError);
+
+    if (email && password && userName && fullName && !error && !matchError) {
+      // Create user data structure
+      const newUser = {
+        userInfo: {
+          email: email,
+          password: password,
+          userName: userName,
+          fullName: fullName,
+          loginStatus: false,
+          registerStatus: true,
+          accessToken: Date.now().toString(),
+        },
+      };
+
+      // Save to localStorage
+      const saved = LocalStorageService.setData(newUser);
+
+      if (saved) {
+        toast.success("Registration successful!");
+        setRegisterSatus(true);
+        setLoginStattus(true);
+        // Redirect to login
+        window.location.href = "/login";
+      } else {
+        toast.error("Registration failed!");
+      }
+    }
   }
 
   return (
