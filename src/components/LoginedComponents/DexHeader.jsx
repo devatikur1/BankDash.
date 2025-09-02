@@ -2,13 +2,13 @@ import { BellDot, Search, Settings } from "lucide-react";
 import { useContext } from "react";
 import { SideOptionAction } from "../../contexts/SideOptionAction";
 
-export default function Header() {
+export default function DexHeader({ pageTitle }) {
   const { setSearchShowing, setSideBarShowing } = useContext(SideOptionAction);
   const IsWin = navigator.platform.includes("Win");
 
   return (
     <section className="w-full glass-card px-5 hidden md:flex justify-between items-center rounded-2xl overflow-hidden py-6">
-      <div className="text-2xl font-semibold text_glow">Overview</div>
+      <div className="text-2xl font-semibold text_glow">{pageTitle}</div>
       <div className="flex gap-3 items-center">
         <button
           onClick={() => {

@@ -7,7 +7,6 @@ export const SideAction = ({ children }) => {
   const [sideBarShowing, setSideBarShowing] = useState(false);
   const [searchShowing, setSearchShowing] = useState(false);
 
-
   return (
     <SideOptionAction.Provider
       value={{

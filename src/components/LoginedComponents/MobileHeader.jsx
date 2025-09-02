@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 
-export default function MobileHeader() {
+export default function MobileHeader({ pageTitle }) {
   const {
     MobiSearchAction,
     sideBarShowing,
@@ -193,7 +193,9 @@ export default function MobileHeader() {
             />
           </a>
         </div>
-        <div className="text-[1.35rem] font-semibold text_glow">Overview</div>
+        <div className="text-[1.35rem] font-semibold text_glow">
+          {pageTitle}
+        </div>
         <button onClick={() => setSideBarShowing(true)}>
           <Menu />
         </button>
